@@ -1,0 +1,118 @@
+{% extends "Common.html" %}
+
+{% block bodydata %}
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.1/dist/web3.min.js"></script>
+    <script>
+    async function makeTrans(){
+
+            if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            }
+
+          await web3.eth.getAccounts((err, res) => {
+                           alert(res);
+                           web3.eth.defaultAccount = res[0];
+          });
+
+                trans = await web3.eth.sendTransaction({from:web3.eth.defaultAccount, to:"0x695A7A4a78fce77Aac660Cd7b9B0Daa7cf05c7d3", value: web3.utils.toWei("0.002", 'ether')},function(error, transHash){
+                            if (error) {alert(error);}
+                            else
+                            {
+                                document.getElementById("nonce").value = transHash;
+                                document.getElementById("from").value = web3.eth.defaultAccount;
+                            }
+                });
+                console.log(trans);
+      }
+    </script>
+
+    <h2>{{operation}}  EHR Record</h2>
+    <form id="frm" name="frm" method="post" action="/ProcessEHRRecordOperation" enctype="multipart/form-data">
+    
+        <input type="hidden" name="operation" value="{{operation}}"/>
+        <input type="hidden" name="unqid" value="{{row.ehrRecordID}}"/>
+        <input type="hidden" name="isBlindedFileGenerated" value="{{row.isBlindedFileGenerated}}"/>
+        
+        <div class="form-group row">
+        <label for="effDate" class="col-sm-3 col-form-label">Eff Date</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" {{'readonly' if operation == 'Delete' or operation == 'View' or row.isBlindedFileGenerated == 1}} name="effDate" id="effDate" placeholder="Eff Date" value="{{row.effDate}}" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="doctorName" class="col-sm-3 col-form-label">Doctor Name</label>
+        <div class="col-sm-9">
+            <select class="form-control" name="doctorID" id="doctorID" {{'readonly' if operation == 'Delete' or operation == 'View' or row.isBlindedFileGenerated == 1}}>
+                {% for docx in doctors %}
+                    <option {{'selected' if docx.doctorID == row.doctor.doctorID}} value="{{docx.doctorID}}">{{docx.doctorName}}</option>
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="patientID" class="col-sm-3 col-form-label">Patient Name</label>
+        <div class="col-sm-9">
+            <select class="form-control" name="patientID" id="patientID" {{'readonly' if operation == 'Delete' or operation == 'View' or row.isBlindedFileGenerated == 1}}>
+                {% for patx in patients %}
+                    <option {{'selected' if patx.patientID == row.patient.patientID}} value="{{patx.patientID}}">{{patx.patientName}}</option>
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="specialization" class="col-sm-3 col-form-label">Disease</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" {{'readonly' if operation == 'Delete' or operation == 'View' or row.isBlindedFileGenerated == 1}} name="disease" id="disease" placeholder="Disease" value="{{row.disease}}" required>
+        </div>
+      </div>
+      
+       <div class="form-group row">
+        <label for="filetoupload" class="col-3 col-form-label">Prescription To Upload</label>
+        <div class="col-9">
+        {% if operation != "Delete" and operation != "View"  and row.isBlindedFileGenerated == 0 %}
+            <input type="file" class="" id="filetoupload" name="filetoupload" {{'readonly' if operation == 'Delete' or operation == 'View'  or row.isBlindedFileGenerated == 1}} {{'required' if operation == "Create"}}>
+        {% endif %}
+            {% if operation != "Create" %}
+                <a target="_blank" class="ml-5 pl-5" href="{{ url_for('static', filename='UPLOADED_DATA/'+row.prescriptionFileName) }}">Download Prescription</a>
+            {% endif %}
+        </div>
+      </div>
+
+      {% if operation != "Edit" and row.isBlindedFileGenerated == 0 %}
+      <h2>Transaction</h2>
+      <div class="row clearfix">
+        <div class="col-4 form-control-label">
+          <label for="nonce">Nonce</label>
+        </div>
+
+        <div class="col-8">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" id="nonce" name="nonce" class="form-control" value="Set nonce value" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 form-control-label">
+          <label for="from">From</label>
+        </div>
+        <div class="col-8">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" id="from" name="from" class="form-control" value="Set from value" readonly>
+              <button type="button" class="btn btn-primary m-t-15 waves-effect" onclick="makeTrans();">GENERATE</button>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="text-center">
+            {% if operation != "View" and row.isBlindedFileGenerated == 0 %}
+            <button type="submit" class="btn btn-outline-primary btn-sm" >{{operation}}</button>
+            {% endif %}
+            <a href="/EHRRecordListing" class="btn btn-outline-primary btn-sm ">Cancel</a>
+      </div>
+    </form>
+    
+{% endblock %}

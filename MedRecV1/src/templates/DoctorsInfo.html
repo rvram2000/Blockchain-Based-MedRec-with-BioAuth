@@ -1,0 +1,32 @@
+{% extends "Common.html" %}
+
+{% block bodydata %}
+    <h2>Doctors Information</h2>
+    <div class="crudmsg alert alert-info">{{msg}}</div>
+    <table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">Doctor Name</th>
+      <th scope="col">Specialization</th>
+      <th scope="col">Contact No</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for doc in resultsx %}
+        <tr>
+          
+          <td>{{ doc.doctorName }}</td>
+          <td>{{ doc.specialization }}</td>
+          <td>{{ doc.contactNbr }}</td>
+          <td class="text-center">
+            <a href="" class="btn btn-outline-primary btn-sm ">Edit</a>
+            <a href="" class="btn btn-outline-danger btn-sm ">Delete</a>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="text-center"><a href="/DoctorCreate" class="btn btn-outline-info btn-sm ">Create</a></div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends template %}
+
+{% block bodydata %}
+    <h2>Patient Listing</h2>
+    <form action="/PatientListing">
+      <div class="form-group row">
+        <label for="searchData" class="col-sm-2 col-form-label">Patient Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="searchData" name="searchData" placeholder="" value="{{ searchData }}" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+      </div>
+    </form>
+{% if template == "Common.html" %}
+<div class="text-left m-5"><a href="/PatientOperation?operation=Create" class="btn btn-outline-info btn-sm ">Create</a></div>
+{% endif %}
+    <table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">Patient Name</th>
+      <th scope="col">Doctor Name</th>
+      <th scope="col">Contact No</th>
+      {% if template == "Common.html" %}
+        <th scope="col">Action</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in records %}
+        <tr>
+            <td>{{ row.patientName }}</td>
+            <td>{{ row.doctor.doctorName }}</td>
+            <td>{{ row.contactNbr }}</td>
+            {% if template == "Common.html" %}
+            <td>
+                <a href="/PatientOperation?operation=Edit&unqid={{row.patientID}}" class="btn btn-outline-info btn-sm ">Edit</a>
+                <a href="/PatientOperation?operation=Delete&unqid={{row.patientID}}" class="btn btn-outline-warning btn-sm ">Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if template == "Common.html" %}
+<div class="text-center"><a href="/PatientOperation?operation=Create" class="btn btn-outline-info btn-sm ">Create</a></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "Common.html" %}
+
+{% block bodydata %}
+<h2>Reports</h2>
+
+<table class="table table-stribed table-bordered">
+    <tr>
+        <td>No of EHR Records</td>
+        <td>{{noOfEHRRecords}}</td>
+    </tr>
+    <tr>
+        <td>No of Blinded Files</td>
+        <td>{{noOfBlindedFiles}}</td>
+    </tr>
+    <tr>
+        <td>No of Sanitized Files</td>
+        <td>{{noOfSanitizedFiles}}</td>
+    </tr>
+       <tr>
+        <td>No of Uploaded Files</td>
+        <td>{{noOfUploadedFiles}}</td>
+    </tr>
+</table>
+
+<h2>Details</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th scope="col">File Name</th>
+      <th scope="col">Blinded File</th>
+      <th scope="col">Sanitized File</th>
+      <th scope="col">On Cloud</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in records %}
+        <tr>
+            <td>{{ row.prescriptionFileName }}</td>
+            <td>{{ row.isBlindedFileGenerated }}</td>
+            <td>{{ row.isSanitizedFileGenerated }}</td>
+            <td>{{ row.isUploadedCloud }}</td>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

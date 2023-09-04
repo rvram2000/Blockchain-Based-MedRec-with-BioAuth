@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="../static/email-validation-REC-2822.js"></script>
+        <script type=text/javascript>
+            $(function() {
+                
+              
+            });
+        </script>
+        <style>
+            div.login{
+                width: 60%;
+                background-color: white;
+                margin: 0 auto;
+                padding: 10px;
+                color: black;
+            }
+        </style>
+        <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}" />
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.1/dist/web3.min.js"></script>
+    <script>
+        async function makeTrans(){
+
+            if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            }
+
+          await web3.eth.getAccounts((err, res) => {
+                           alert(res);
+                           web3.eth.defaultAccount = res[0];
+          });
+
+                trans = await web3.eth.sendTransaction({from:web3.eth.defaultAccount, to:"0x695A7A4a78fce77Aac660Cd7b9B0Daa7cf05c7d3", value: web3.utils.toWei("0.002", 'ether')},function(error, transHash){
+                            if (error) {alert(error);}
+                            else
+                            {
+                                document.getElementById("nonce").value = transHash;
+                                document.getElementById("from").value = web3.eth.defaultAccount;
+                            }
+                });
+                console.log(trans);
+      }
+    </script>
+    <script>
+    $(document).ready(function(){
+      $("#otpgen").click(function(){
+        $.get("/OTPGeneration",{email:$("#emailid").val()}, function(msg){
+          alert(msg);
+        });
+      });
+    });
+
+    </script>
+
+
+    <body class="container" style="background-image: url(/static/login.jpg)">
+        <h1 class="text-center mb-5">Medical Record On Blockchain </h1>
+        <div class="row login">
+            <div class="col-1">
+            </div>
+            <div class="col-8">
+                <form class="form-horizontal" action="/AuthenticateDoctorLogin" method="post">
+                                <div class="row clearfix">
+                                    <div class="col-4 form-control-label">
+                                        <label for="emailid">Email Address</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="emailid" name="emailid" class="form-control" placeholder="Enter your email address" pattern="" title="Valid Email Id" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-4 form-control-label">
+                                        <label for="otp">OTP</label>
+                                    </div>
+
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter OTP number" required>
+                                                <button type="button" id="otpgen" class="btn btn-primary m-t-15 waves-effect">GENERATE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-4 form-control-label">
+                                        <label for="nonce">Nonce</label>
+                                    </div>
+
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="nonce" name="nonce" class="form-control" value="Set nonce value" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 form-control-label">
+                                        <label for="from">From</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="from" name="from" class="form-control" value="Set from value" readonly>
+                                                <button type="button" class="btn btn-primary m-t-15 waves-effect" onclick="makeTrans();">GENERATE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-check m-l-10">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="remember" name="remember" type="checkbox" value="1"> Remember Me
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">LOGIN</button>
+                                    </div>
+                                </div>
+                            </form>
+            </div>
+            <div class="col-3">
+                <center><h4><a href="/">Admin Login</a></h4></center>
+            </div>
+        </div>
+    </body>
+
+</html>

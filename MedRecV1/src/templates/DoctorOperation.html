@@ -1,0 +1,104 @@
+{% extends "Common.html" %}
+
+{% block bodydata %}
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.1/dist/web3.min.js"></script>
+    <script>
+    async function makeTrans(){
+
+            if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            }
+
+          await web3.eth.getAccounts((err, res) => {
+                           alert(res);
+                           web3.eth.defaultAccount = res[0];
+          });
+
+                trans = await web3.eth.sendTransaction({from:web3.eth.defaultAccount, to:"0x695A7A4a78fce77Aac660Cd7b9B0Daa7cf05c7d3", value: web3.utils.toWei("0.002", 'ether')},function(error, transHash){
+                            if (error) {alert(error);}
+                            else
+                            {
+                                document.getElementById("nonce").value = transHash;
+                                document.getElementById("from").value = web3.eth.defaultAccount;
+                            }
+                });
+                console.log(trans);
+      }
+    </script>
+
+    <h2>{{operation}}  Doctor</h2>
+    <form id="frm" name="frm" method="post" action="/ProcessDoctorOperation" enctype="multipart/form-data">
+    
+        <input type="hidden" name="operation" value="{{operation}}"/>
+        <input type="hidden" name="unqid" value="{{row.doctorID}}"/>
+        
+      <div class="form-group row">
+        <label for="doctorName" class="col-sm-2 col-form-label">Doctor Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" {{'readonly' if operation == 'Delete'}} name="doctorName" id="doctorName" placeholder="Doctor Name" value="{{row.doctorName}}" required>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="specialization" class="col-sm-2 col-form-label">Specialization</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" {{'readonly' if operation == 'Delete'}} name="specialization" id="specialization" placeholder="Specialization" value="{{row.specialization}}" required>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="contactNbr" class="col-sm-2 col-form-label">Contact No</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" {{'readonly' if operation == 'Delete'}} name="contactNbr" id="contactNbr" placeholder="Contact No" value="{{row.contactNbr}}" minlength="10"  maxlength="10" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="doctorName" class="col-sm-2 col-form-label">Email ID</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" {{'readonly' if operation == 'Delete'}} name="emailID" id="emailID" placeholder="Email ID" value="{{row.emailID}}" required>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="specialization" class="col-sm-2 col-form-label">address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" {{'readonly' if operation == 'Delete'}} name="address" id="address" placeholder="Address" value="{{row.address}}" required>
+        </div>
+      </div>
+
+
+      {% if operation != "Edit" %}
+      <h2>Transaction</h2>
+      <div class="row clearfix">
+        <div class="col-4 form-control-label">
+          <label for="nonce">Nonce</label>
+        </div>
+
+        <div class="col-8">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" id="nonce" name="nonce" class="form-control" value="Set nonce value" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 form-control-label">
+          <label for="from">From</label>
+        </div>
+        <div class="col-8">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" id="from" name="from" class="form-control" value="Set from value" readonly>
+              <button type="button" class="btn btn-primary m-t-15 waves-effect" onclick="makeTrans();">GENERATE</button>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      
+      <div class="text-center">
+            <button type="submit" class="btn btn-outline-primary btn-sm ">{{operation}}</button>
+            <a href="/DoctorListing" class="btn btn-outline-primary btn-sm ">Cancel</a>            
+      </div>
+    </form>
+    
+{% endblock %}
