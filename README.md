@@ -10,3 +10,5 @@ So, we heartily implement the idea suggested by Victoria Fehr & Marc Fischlin in
 The proposed system thus developed, when deployed in a Production
 environment as a Distributed Application (DApp) would be impossible to penetrate
 and have zero downtime.
+
+Skills: Ethereum, Ganache, Metamask, Flask(Python), HTML, OAuth, Face Recognition
