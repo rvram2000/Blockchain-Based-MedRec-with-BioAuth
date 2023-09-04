@@ -1,0 +1,21 @@
+
+h1{
+    color: #00BCD4 !important;
+    font-weight:bold;
+}
+h2{
+padding:10px;
+}
+.error{
+    color: red;
+    font-style: italic;
+}
+
+.crudmsg{
+    width:70%;
+    text-align:center;
+}
+
+.bdy{
+    background-image: url("dashbg.png");
+}

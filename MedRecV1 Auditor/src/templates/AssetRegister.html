@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script type=text/javascript>
+            $(function() {
+                
+              console.log("JQuery Running");
+            });
+        </script>
+        <style>
+            #div1{
+                width:60%;
+                margin:0 auto;
+            }
+        </style>
+    </head>
+
+    <body class="container" style="background-color:#F9F9F9">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">CIS</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/Dashboard">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/AuditListing">Audit Listing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ChangePassword">Change Password</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/">Logout</a>
+              </li>
+            </ul>
+            
+          </div>
+        </nav>
+        <br/>
+        <div class="content container">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Asset ID</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Group</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Serial No</th>
+                  <th scope="col">Purchase Date</th>
+                  <th scope="col">Currency</th>
+                  <th scope="col">Purchase Value</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                    <tr>
+                        <td>CNA0001</td>
+                        <td>Buildings and Structures</td>
+                        <td>Guest House</td>
+                        <td>Ceebros</td>
+                        <td>B2A</td>
+                        <td>25-Apr-2006</td>
+                        <td>INR</td>
+                        <td>80,00,000.00</td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5001</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Dell</td>
+                        <td>44116358P</td>
+                        <td>25-Oct-2006</td>
+                        <td>INR</td>
+                        <td>70,989.00</td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5002</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Compaq</td>
+                        <td>CNU5311QSK</td>
+                        <td>25-Oct-2006</td>
+                        <td>INR</td>
+                        <td>92,988.00</td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5001</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Dell</td>
+                        <td>2F-D1728</td>
+                        <td>25-Oct-2006</td>
+                        <td>USD</td>
+                        <td>1,200.00</td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5001</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Dell</td>
+                        <td>LVF7291</td>
+                        <td>25-Oct-2006</td>
+                        <td>INR</td>
+                        <td>45,000.00</td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5001</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Dell</td>
+                        <td>Y8194937A</td>
+                        <td>25-Oct-2006</td>
+                        <td>INR</td>
+                        <td>38,000.00</td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5001</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Dell</td>
+                        <td></td>
+                        <td>25-Oct-2006</td>
+                        <td>INR</td>
+                        <td></td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CNA5001</td>
+                        <td>Computer</td>
+                        <td>Electronics</td>
+                        <td>Dell</td>
+                        <td></td>
+                        <td>25-Oct-2006</td>
+                        <td>INR</td>
+                        <td></td>
+                        <td>
+                            <a href="/AuditOperation?operation=Edit" class="btn btn-outline-info btn-sm ">Edit</a>
+                            <a href="/AuditOperation?operation=Delete" class="btn btn-outline-danger btn-sm ">Delete</a>
+                        </td>
+                    </tr>
+  </tbody>
+</table>
+        </div>
+    </body>
+
+</html>

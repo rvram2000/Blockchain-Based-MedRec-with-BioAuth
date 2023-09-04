@@ -1,0 +1,25 @@
+{% extends "Base.html" %}
+
+{% block content %}
+    <h2>Audit Listing</h2>
+    <table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">File Name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in records %}
+        <tr>
+            <td>{{ row.prescriptionFileName+'.blinded.sanitized' }}</td>
+            <td>
+                <a href="/AuditOperation?operation=Edit&unqid={{row.ehrRecordID}}" class="btn btn-outline-info btn-sm ">Audit</a>
+                
+            </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

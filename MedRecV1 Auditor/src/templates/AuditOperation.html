@@ -1,0 +1,56 @@
+{% extends "Base.html" %}
+
+{% block content %}
+    <h2>Audit Result</h2>
+    <form id="frm" name="frm" method="post" action="/ProcessAuditOperation" enctype="multipart/form-data">
+    
+        <input type="hidden" name="operation" value="{{operation}}"/>
+        <input type="hidden" name="unqid" value="{{row.ehrRecordID}}"/>
+        <input type="hidden" name="isProblem" value="{{isProblem}}"/>
+      <div class="form-group row">
+        <label for="doctorName" class="col-sm-2 col-form.blinded.sanitized-label">File Name</label>
+        <div class="col-sm-10">
+            {{row.prescriptionFileName+'.blinded.sanitized'}}
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="specialization" class="col-sm-2 col-form-label">Original Has Value</label>
+        <div class="col-sm-10">
+          {{row.fileHashValue}}
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="contactNbr" class="col-sm-2 col-form-label">Current Has Value</label>
+        <div class="col-sm-10">
+          {{currentHashValue}}
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="doctorName" class="col-sm-2 col-form-label">Is Problem</label>
+        <div class="col-sm-10">
+           {% if isProblem == False %}
+                <div class="alert alert-success" role="alert">
+                  File is Perfect
+                </div>
+            {% endif %}
+            {% if isProblem == True %}
+                <div class="alert alert-danger" role="alert">
+                  File is Damaged
+                </div>
+            {% endif %}
+        </div>
+      </div>
+      
+      
+      
+
+      
+      <div class="text-center">
+            <button type="submit" class="btn btn-outline-primary btn-sm ">Save</button>
+            <a href="/AuditListing" class="btn btn-outline-primary btn-sm ">Cancel</a>            
+      </div>
+    </form>
+    
+{% endblock %}
